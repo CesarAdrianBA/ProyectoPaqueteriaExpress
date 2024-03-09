@@ -63,4 +63,40 @@ controllerClientes.deleteClient = async (req, res) =>{
     }
 }
 
+// Método para obtener todos los clientes
+controllerClientes.getAllClients = async (req, res) => {
+    try {
+        const clients = await clientModel.find();
+        messageGeneral(res, 200, true, clients, "Clientes encontrados");
+    } catch (error) {
+        messageGeneral(res, 500, false, "", error.message);
+    }
+};
+// Método para hacer login de cliente
+controllerClientes.loginClient = async (req, res) => {
+    try {
+        const data = req.body;
+
+        const resp = await clientModel.findOne({ Correo: data.Correo });
+
+        // Si correo no existe en la BD devuelvo mensaje de error
+        if (!resp) {
+            return messageGeneral(res, 400, false, "", 'Correo no existe');
+        }
+
+        // Verificando contraseñas
+        const match = await bcrypt.compare(data.Contrasenia, resp.Contrasenia);
+
+        if (!match) {
+            const token = Jwt.sign({ Id: resp._id }, "secreta");
+            return messageGeneral(res, 200, true, { ...resp._doc, password: null, token }, "Bienvenido!!!");
+        }
+
+        messageGeneral(res, 400, false, "", "Contraseña incorrecta!!!");
+    } catch (error) {
+        messageGeneral(res, 500, false, "", error.message);
+    }
+}
+
+
 export default  controllerClientes;

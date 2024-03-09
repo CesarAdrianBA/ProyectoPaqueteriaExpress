@@ -22,6 +22,10 @@ const clientSchema = new Schema({
     Edad: {
         type : Number, 
         require : true
+    },
+    Contrasenia: {
+        type : String,
+        required : true
     }
 
 });
