@@ -13,7 +13,7 @@ controllerClientes.createClient = async(req, res) =>{
     try{
         const data = req.body;
         const resp = await clientModel.create(data);
-        messageGeneral(res,201, true,resp,"Empleado creado"); 
+        messageGeneral(res,201, true,resp,"Cliente creado"); 
     } catch {
         messageGeneral(res,500,false,"",error.message);
     }

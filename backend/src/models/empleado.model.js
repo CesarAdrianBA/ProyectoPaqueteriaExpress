@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const  { Schema, model } = mongoose;
 
-employeeSchema  = new Schema({
+const employeeSchema  = new Schema({
     Nombre: {
         type : String, 
         require : true
@@ -16,11 +16,12 @@ employeeSchema  = new Schema({
     },
     Cargo: {
         type : String, 
-        enum: ['Agente de ventas', 'Repartidor']
+        enum: ['Agente de ventas', 'Repartidor'],
+        require: true
     },
-    // Contraseña: {
-    //     type : String,
-    //     required : true 
-    // }
+    Contrasenia: {
+        type : String,
+        required : true 
+    }
 });
 export const  employeeModel = model('empleado', employeeSchema);

@@ -7,7 +7,7 @@ import connectDB from "./database.js";
 connectDB();
 
 import clientRoute from  '../src/routes/cliente.routes.js';
-// import empleadoRoute from  './routes/empleado.routes.js';
+import employeeRoute from '../src/routes/empleado.routes.js';
 
 // asignar a una variable el funcionamiento de express
 const app = Express();
@@ -25,6 +25,7 @@ app.use(Express.json());
 // Para poder recibir peticiones de diferentes fuentes
 app.use(Cors({origin:'*'}));
 app.use('/api', clientRoute);
+app.use('/api', employeeRoute);
 
 
 // Función para correr el servidor
