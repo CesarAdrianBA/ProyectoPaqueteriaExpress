@@ -43,4 +43,4 @@ const  pedidoSchema = new Schema({
     timestamps:true 
 });
 
-export const  pedidoModel = model('pedido', pedidoSchema);
+export const  ordersModel = model('pedido', pedidoSchema);

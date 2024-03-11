@@ -9,6 +9,7 @@ connectDB();
 import clientRoute from  '../src/routes/cliente.routes.js';
 import employeeRoute from '../src/routes/empleado.routes.js';
 import tSendsRoute from '../src/routes/envio.route.js';
+import orderRoute from '../src/routes/pedido.routes.js';
 
 // asignar a una variable el funcionamiento de express
 const app = Express();
@@ -28,6 +29,7 @@ app.use(Cors({origin:'*'}));
 app.use('/api', clientRoute);
 app.use('/api', employeeRoute);
 app.use('/api', tSendsRoute);
+app.use('/api', orderRoute)
 
 
 // Función para correr el servidor
