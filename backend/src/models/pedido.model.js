@@ -12,15 +12,15 @@ const  pedidoSchema = new Schema({
       } ,
     Cliente: {
         type: Schema.ObjectId,
-        ref: 'cliente'
+        ref: 'cliente' // el valor hace referencia al ID de un usuario Cliente
     },
     Empleado: {
         type: Schema.ObjectId,
-        ref: 'empleado'
+        ref: 'empleado' // El valor hace referencia al ID de un usuario Empleado
     },
     Envio: {
         type: Schema.ObjectId,
-        ref: 'envio'
+        ref: 'envio' // El valor hace referencia al ID de un Envio
     },
     Destinatario: {
         type: String,

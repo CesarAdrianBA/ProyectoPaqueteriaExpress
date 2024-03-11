@@ -1,6 +1,4 @@
 import { ordersModel } from "../models/pedido.model.js";
-import bcrypt from  'bcrypt';
-import Jwt from "jsonwebtoken";
 import messages from "../utils/messages.js";
 const { messageGeneral } = messages;
 
@@ -18,7 +16,7 @@ const  controllerPedidos = {};
         messageGeneral(res,500,false,"",error.message);
 
     }
- }
+ };
 
 
  // Método paraobtener un pedido via ID
@@ -33,7 +31,7 @@ const  controllerPedidos = {};
     } catch(error){
         messageGeneral(res,500,false,"",error.message);
     }
- }
+ };
 
 
  // Método para actualizar un pedido por ID
@@ -49,7 +47,7 @@ const  controllerPedidos = {};
     } catch (error) {
         messageGeneral(res,500,false,"",error.message);
     }
- }
+ };
 
 
  // Método para eliminar un pedido por ID
@@ -65,7 +63,7 @@ const  controllerPedidos = {};
     }catch(error){
         messageGeneral(res,500,false,"",error.message);
     }
- }
+ };
 
 
 /*-------------------- Métodos adicionales ---------------------------*/
@@ -77,6 +75,6 @@ const  controllerPedidos = {};
     }catch (error) {
         messageGeneral(res, 500, false, "", error.message);
     }
- }
+ };
 
  export  default controllerPedidos;

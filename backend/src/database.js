@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const URI = "mongodb://localhost/paqueteriaExpress";
 
-// se crea la conexión
+// se crea la conexión a la base de datos
 const  connectDB = async () => {
     try{
         const db=await mongoose.connect(URI);

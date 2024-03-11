@@ -3,8 +3,6 @@ import bcrypt from 'bcrypt';
 import Jwt from "jsonwebtoken";
 import messages from "../utils/messages.js";
 const { messageGeneral } = messages;
-// utils message
-// Pendiente
 
 const  controllerClientes = {};
 
@@ -72,6 +70,7 @@ controllerClientes.getAllClients = async (req, res) => {
         messageGeneral(res, 500, false, "", error.message);
     }
 };
+
 // Método para hacer login de cliente
 controllerClientes.loginClient = async (req, res) => {
     try {

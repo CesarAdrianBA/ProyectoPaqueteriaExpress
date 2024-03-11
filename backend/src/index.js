@@ -6,10 +6,10 @@ import connectDB from "./database.js";
 
 connectDB();
 
-import clientRoute from  '../src/routes/cliente.routes.js';
-import employeeRoute from '../src/routes/empleado.routes.js';
-import tSendsRoute from '../src/routes/envio.route.js';
-import orderRoute from '../src/routes/pedido.routes.js';
+import clientRoute from  '../src/routes/cliente.routes.js'; // Importamos las rutas para los clientes
+import employeeRoute from '../src/routes/empleado.routes.js'; // Importamos las rutas para los empleados
+import tSendsRoute from '../src/routes/envio.route.js'; // Importamos las rutas de los envios
+import orderRoute from '../src/routes/pedido.routes.js'; // importamos las rutas para los pedidos
 
 // asignar a una variable el funcionamiento de express
 const app = Express();
@@ -26,7 +26,7 @@ app.use(Express.json());
 
 // Para poder recibir peticiones de diferentes fuentes
 app.use(Cors({origin:'*'}));
-app.use('/api', clientRoute);
+app.use('/api', clientRoute); 
 app.use('/api', employeeRoute);
 app.use('/api', tSendsRoute);
 app.use('/api', orderRoute)

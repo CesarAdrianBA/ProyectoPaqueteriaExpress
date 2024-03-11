@@ -1,6 +1,4 @@
-import { enviosModel } from '../models/envios.model.js'
-import bcrypt from  'bcrypt';
-import Jwt from "jsonwebtoken";
+import { enviosModel } from '../models/envios.model.js';
 import messages from "../utils/messages.js";
 const { messageGeneral } = messages;
 
@@ -17,7 +15,7 @@ const  controllerEnvios = {};
       messageGeneral(res,500,false,"",error.message);
 
   }
- }
+ };
 
  // Método paraobtener un tipo de envio via ID
  controllerEnvios.getTSendsById = async (req, res)=>{
@@ -46,7 +44,7 @@ const  controllerEnvios = {};
    } catch (error) {
        messageGeneral(res,500,false,"",error.message);
    }
-}
+};
 
    // Método para eliminar un tipo de envio por ID
    controllerEnvios.deleteTSends = async (req, res) =>{
@@ -61,7 +59,7 @@ const  controllerEnvios = {};
    }catch(error){
          messageGeneral(res,500,false,"",error.message);
    }
-}
+};
 
 /*-------------------- Métodos adicionales ---------------------------*/
  // Método para obtener todos los tipo de envios
