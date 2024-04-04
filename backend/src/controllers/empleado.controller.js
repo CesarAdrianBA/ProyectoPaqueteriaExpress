@@ -93,13 +93,12 @@ const  controllerEmpleados = {};
 
         if (!match) {
             const token = Jwt.sign({ Id: resp._id }, "secreta");
-            return messageGeneral(res, 200, true, { ...resp._doc, password: null, token }, "Bienvenido!!!");
+            return messageGeneral(res, 200, true, { ...resp._doc, Contrasenia: null, token }, "Bienvenido!!!");
         }
         messageGeneral(res, 400, false, "", "Contraseña incorrecta!!!");
     } catch (error){
         messageGeneral(res, 500, false, "", error.message);
     }
  }
-
 
  export  default controllerEmpleados;
