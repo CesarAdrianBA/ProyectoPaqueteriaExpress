@@ -16,8 +16,12 @@ const employeeSchema  = new Schema({
     },
     Cargo: {
         type : String, 
-        enum: ['Administrador', 'Agente de ventas', 'Repartidor'], // Aqui solo se pueden utilizar valores que se encuentren en esta lista.
+        enum: ['Administrador', 'Empleado', 'Agente de ventas', 'Repartidor'], // Aqui solo se pueden utilizar valores que se encuentren en esta lista.
         require: true
+    },
+    Jefe: { //Pendiente
+        type : Schema.ObjectId,
+        ref: "empleado"
     },
     Contrasenia: {
         type : String,

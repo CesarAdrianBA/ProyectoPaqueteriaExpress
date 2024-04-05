@@ -1,5 +1,6 @@
 import { Router } from "express";
 import controllerEmpleados from  '../controllers/empleado.controller.js';
+import { verificarToken } from "../middlewares/Auth.js";
 const route = Router();
 
 // CRUD
@@ -11,5 +12,6 @@ route.delete("/deleteEmployee/:id", controllerEmpleados.deleteEmployee); // Elim
 //Otros metodos
 route.get('/listEmployee', controllerEmpleados.getAllEmployee);  // Listado completo de  los empleados
 route.post('/loginEmployee', controllerEmpleados.loginEmployee);  // Iniciar sesión empleado en el sistema
+route.get('/listEmployeesBoss', verificarToken, controllerEmpleados.getAllEmployeesBoss);   // Obtener lista de todos los empledos que tiene asignado como jefe
 
 export default route;

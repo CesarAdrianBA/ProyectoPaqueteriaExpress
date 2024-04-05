@@ -77,6 +77,19 @@ const  controllerEmpleados = {};
     }
  };
 
+  // Método para obtener los empleados segun el jefe que inicio seción
+  controllerEmpleados.getAllEmployeesBoss = async (req, res) =>{
+    try{
+        const  employees = await employeeModel.find({Jefe: req.userid }).populate({
+            path:"Jefe",
+            select: 'Nombre Cargo'
+        });
+        messageGeneral(res, 200, true, employees, "Empleados encontrados "+ req.userid);
+    }catch (error) {
+        messageGeneral(res, 500, false, "", error.message);
+    }
+ };
+
  // Método para hacer login de empleado
  controllerEmpleados.loginEmployee = async (req, res)=>{
     try{
@@ -92,7 +105,7 @@ const  controllerEmpleados = {};
         const match = await bcrypt.compare(data.Contrasenia, resp.Contrasenia);
 
         if (!match) {
-            const token = Jwt.sign({ Id: resp._id }, "secreta");
+            const token = Jwt.sign({ _id: resp._id }, "secreta");
             return messageGeneral(res, 200, true, { ...resp._doc, Contrasenia: null, token }, "Bienvenido!!!");
         }
         messageGeneral(res, 400, false, "", "Contraseña incorrecta!!!");
