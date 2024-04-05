@@ -23,6 +23,10 @@ const clientSchema = new Schema({
         type : Number, 
         require : true
     },
+    EmpleadoAsignado: {
+        type : Schema.ObjectId,
+        ref: "empleado"
+    },
     Contrasenia: {
         type : String,
         required : true

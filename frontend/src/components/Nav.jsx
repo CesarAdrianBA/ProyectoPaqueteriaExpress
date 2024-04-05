@@ -3,12 +3,17 @@ import { NavLink } from 'react-router-dom';
 import { useEmployee } from '../context/EmployeeContext';
 
 const Nav = () => {
-  const {user,exit}=useEmployee();
+  const {employee,exit}=useEmployee();
+
+  if (!employee.token) {
+    return null;
+  }
+
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
     <div className="container">
       <NavLink to='/' className='navbar-brand'>Inicio</NavLink>
-      <NavLink to='#' className='navbar-brand'>Bienvenido:{user.name}</NavLink>
+      <NavLink to='#' className='navbar-brand'>Bienvenido:{employee.name}</NavLink>
       <button className='navbar-toggler' type="button"
             data-bs-toggle="collapse" aria-controls="navbarNav"
             data-bs-target="#navbarNav" aria-expanded="false"
@@ -16,7 +21,7 @@ const Nav = () => {
       > <span className='navbar-toggler-icon'></span>
       </button>
       {
-        user.login? (
+        employee.login? (
       <div className='collapse navbar-collapse' id='navbarNav'>
         <ul className='navbar-nav ms-auto'>
           <li className='nav-item'>
@@ -25,8 +30,13 @@ const Nav = () => {
             </NavLink>
           </li>
           <li className='nav-item'>
-            <NavLink className='nav-link' to='/rentas'>
-              <i className='fas fa-user'>Rentas</i>
+            <NavLink className='nav-link' to='/clients'>
+              <i className='fas fa-user'>Clientes</i>
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink className='nav-link' to='/register'>
+              <i className='fas fa-user'>Registrar</i>
             </NavLink>
           </li>
           <li className='nav-item'>

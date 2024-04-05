@@ -3,15 +3,15 @@ import { useEmployee } from '../context/EmployeeContext';
 import Swal from "sweetalert2";
 import axios from 'axios';
 
-const Employees = () => {
+const Clients = () => {
     const { employee } = useEmployee();
-    const [empleados, setEmpleados] = useState([]);
+    const [clientes, setClientes] = useState([]);
 
-    const getEmployees= useCallback (async()=>{
+    const getClients= useCallback (async()=>{
         try {
-          const { data } = await axios.get("/listEmployee");
+          const { data } = await axios.get("/listClientsofEmployee");
             //console.log(data);
-            setEmpleados(data.data);
+            setClientes(data.data);
         } catch (error) {
           if(!error.response.data.ok){
             return Swal.fire({
@@ -21,16 +21,16 @@ const Employees = () => {
                timer: 1500
              });
            }
-           console.log('error en la función getEmployees ',error.message);
+           console.log('error en la función listClients ',error.message);
         }
       },[]);
 
       useEffect(() => {
-        getEmployees();
-      }, [getEmployees]);
+        getClients();
+      }, [getClients]);
 
     
-      const deleteEmployee = async (id) => {
+      const deleteClient = async (id) => {
         Swal.fire({
           title: "¿Está seguro?",
           text: "Esta acción no es reversible!",
@@ -41,8 +41,8 @@ const Employees = () => {
           confirmButtonText: "Si, eliminar!",
         }).then(async (result) => {
           if (result.isConfirmed) {
-            const { data } = await axios.delete("/deleteEmployee/" + id);
-            getEmployees();
+            const { data } = await axios.delete("/deleteClient/" + id);
+            getClients();
             Swal.fire({
               icon: "success",
               title: data.message,
@@ -81,7 +81,7 @@ const Employees = () => {
           <div className='col-md-12'>
             <div className='card'>
               <div className='card-header'>
-                <h4>Empleados de {employee.name}</h4>
+                <h4>Clientes de {employee.name}</h4>
               </div>
               <div className='table-responsive-lg'>
                 <table className='table table-striped'>
@@ -91,21 +91,24 @@ const Employees = () => {
                       <th>Nombres</th>
                       <th>Teléfono</th>
                       <th>Correo</th>
-                      <th>Cargo</th>
+                      <th>Genero</th>
+                      <th>Edad</th>
+                      <th>Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     {
-                        empleados.map((item,i)=>(
+                        clientes.map((item,i)=>(
                           <tr key={item._id}>
                             <td>{i+1}</td>
                             <td>{item.Nombre}</td>
                             <td>{item.Telefono}</td>
                             <td>{item.Correo}</td>
-                            <td>{item.Cargo}</td>
+                            <td>{}</td>
+                            <td></td>
                             <td>
                             <button className='btn btn-danger me-1' onClick={() =>{
-                                deleteEmployee(item._id);
+                                deleteClient(item._id);
                               }}>
                                 <i className='fas fa-trash'></i>
                               </button>
@@ -130,4 +133,4 @@ const Employees = () => {
   )
 }
 
-export default Employees;
+export default Clients;

@@ -19,7 +19,7 @@ const employeeSchema  = new Schema({
         enum: ['Administrador', 'Empleado', 'Agente de ventas', 'Repartidor'], // Aqui solo se pueden utilizar valores que se encuentren en esta lista.
         require: true
     },
-    Jefe: { //Pendiente
+    Jefe: {
         type : Schema.ObjectId,
         ref: "empleado"
     },

@@ -71,6 +71,19 @@ controllerClientes.getAllClients = async (req, res) => {
     }
 };
 
+// Método para obtener todos los clientes por empleado
+controllerClientes.getAllClientsEmployees = async (req, res) =>{
+    try{
+        const  clients = await clientModel.find({EmpleadoAsignado: req.userid }).populate({
+            path:"EmpleadoAsignado",
+            select: 'Nombre Cargo'
+        });
+        messageGeneral(res, 200, true, clients, "Clientes encontrados "+ req.userid);
+    }catch (error) {
+        messageGeneral(res, 500, false, "", error.message);
+    }
+ };
+
 // Método para hacer login de cliente
 controllerClientes.loginClient = async (req, res) => {
     try {
@@ -96,6 +109,8 @@ controllerClientes.loginClient = async (req, res) => {
         messageGeneral(res, 500, false, "", error.message);
     }
 }
+
+
 
 
 export default  controllerClientes;
