@@ -114,4 +114,17 @@ const  controllerEmpleados = {};
     }
  }
 
+ // Método para buscar empleado
+ controllerEmpleados.searchEmployee=async (req, res) =>{
+    try {
+        const { Nombre } = req.params;
+        const resp = await employeeModel.find({
+          Nombre:{$regex: "." + Nombre + "."},
+        });
+        messageGeneral(res,200,true,resp,"");
+      } catch (error) {
+        messageGeneral(res,500,false,"",error.message);
+      }
+ }
+
  export  default controllerEmpleados;

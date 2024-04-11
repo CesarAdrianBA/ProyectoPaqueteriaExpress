@@ -10,7 +10,7 @@ const Clients = () => {
     const getClients= useCallback (async()=>{
         try {
           const { data } = await axios.get("/listClientsofEmployee");
-            //console.log(data);
+            console.log(data);
             setClientes(data.data);
         } catch (error) {
           if(!error.response.data.ok){
@@ -104,8 +104,8 @@ const Clients = () => {
                             <td>{item.Nombre}</td>
                             <td>{item.Telefono}</td>
                             <td>{item.Correo}</td>
-                            <td>{}</td>
-                            <td></td>
+                            <td>{item.Genero}</td>
+                            <td>{item.Edad}</td>
                             <td>
                             <button className='btn btn-danger me-1' onClick={() =>{
                                 deleteClient(item._id);

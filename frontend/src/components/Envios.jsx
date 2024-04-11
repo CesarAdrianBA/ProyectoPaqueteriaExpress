@@ -2,17 +2,16 @@ import React, { useState,useEffect, useCallback  } from 'react';
 import { useEmployee } from '../context/EmployeeContext';
 import Swal from "sweetalert2";
 import axios from 'axios';
-import ModalActionsEmployees from './ModalActionsEmployees';
 
-const Employees = () => {
+const SendsType = () => {
     const { employee } = useEmployee();
-    const [empleados, setEmpleados] = useState([]);
+    const [envios, setEnvios] = useState([]);
 
-    const getEmployees= useCallback (async()=>{
+    const getEnvios= useCallback (async()=>{
         try {
-          const { data } = await axios.get("/listEmployee");
+          const { data } = await axios.get("/listTSends");
             //console.log(data);
-            setEmpleados(data.data);
+            setEnvios(data.data);
         } catch (error) {
           if(!error.response.data.ok){
             return Swal.fire({
@@ -22,16 +21,16 @@ const Employees = () => {
                timer: 1500
              });
            }
-           console.log('error en la función getEmployees ',error.message);
+           console.log('error en la función listTSends ',error.message);
         }
       },[]);
 
       useEffect(() => {
-        getEmployees();
-      }, [getEmployees]);
+        getEnvios();
+      }, [getEnvios]);
 
     
-      const deleteEmployee = async (id) => {
+      const deleteClient = async (id) => {
         Swal.fire({
           title: "¿Está seguro?",
           text: "Esta acción no es reversible!",
@@ -42,8 +41,8 @@ const Employees = () => {
           confirmButtonText: "Si, eliminar!",
         }).then(async (result) => {
           if (result.isConfirmed) {
-            const { data } = await axios.delete("/deleteEmployee/" + id);
-            getEmployees();
+            const { data } = await axios.delete("/deleteTSends/" + id);
+            getEnvios();
             Swal.fire({
               icon: "success",
               title: data.message,
@@ -53,44 +52,13 @@ const Employees = () => {
           }
         });
       };
-
-      
-      //manejar modal
-      const [employees,setEmployees] = useState(false);
-      const [edit,setEdit] = useState(false);
-      const [open, setOpen] = useState(false);
-
-      const onOpenModal = (edit,employees) => {
-        setOpen(true);
-        setEdit(edit);
-        setEmployees(employees);
-      }
-
-      const onCloseModal = () => setOpen(false);
-
-      //busqueda
-      //método de búsqueda desde el backend
-      
-      const search = async (value) => {
-        try {
-          console.log(value);
-            if (value === "") {
-              return getEmployees();
-            }
-            const { data } = await axios.get(`/search/${value}`);
-            setEmpleados(data.data);
-          } catch (error) {
-            console.log("error en search", error.message);
-          }
-      };
-      
+  
   return (
     <div>
     <nav className='navbar py-4'>
       <div className='container'>
         <div className='col-md-3'>
-          <button className='btn btn-primary'
-          onClick={()=>onOpenModal(false,{})} >
+          <button className='btn btn-primary'>
             <i className='fas fa-plus'></i> Add empleado
           </button>
         </div>{/*col-md-3*/}
@@ -102,8 +70,7 @@ const Employees = () => {
               placeholder='Buscar...'
               aria-label="Search"
               required
-              onChange={(e)=>search(e.target.value)}
-              />
+            />
           </div>{/*input-group*/}
         </div>{/*col-md-6 ml-auto*/}
       </div>{/*container*/}
@@ -114,37 +81,32 @@ const Employees = () => {
           <div className='col-md-12'>
             <div className='card'>
               <div className='card-header'>
-                <h4>Empleados de {employee.name}</h4>
+                <h4>Clientes de {employee.name}</h4>
               </div>
               <div className='table-responsive-lg'>
                 <table className='table table-striped'>
                   <thead className='table-dark'>
                     <tr>
                       <th>#</th>
-                      <th>Nombres</th>
-                      <th>Teléfono</th>
-                      <th>Correo</th>
-                      <th>Cargo</th>
+                      <th>Tipo</th>
+                      <th>Costo</th>
                       <th>Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     {
-                        empleados.map((item,i)=>(
+                        envios.map((item,i)=>(
                           <tr key={item._id}>
                             <td>{i+1}</td>
-                            <td>{item.Nombre}</td>
-                            <td>{item.Telefono}</td>
-                            <td>{item.Correo}</td>
-                            <td>{item.Cargo}</td>
+                            <td>{item.Tipo}</td>
+                            <td>{item.Costo}</td>
                             <td>
                             <button className='btn btn-danger me-1' onClick={() =>{
-                                deleteEmployee(item._id);
+                                deleteClient(item._id);
                               }}>
                                 <i className='fas fa-trash'></i>
                               </button>
-                              <button className='btn btn-warning'
-                                onClick={()=> onOpenModal(true,item)}>
+                              <button className='btn btn-warning'>
                                 <i className='fas fa-edit'></i>
                               </button>
                             </td>
@@ -160,16 +122,9 @@ const Employees = () => {
         </div>{/*row*/}
       </div> {/*container*/}
     </section>
-    <ModalActionsEmployees
-        open={open} 
-        onCloseModal={onCloseModal}
-        getEmployees={getEmployees}
-        edit={edit}
-        employee={employees}
-      />
   </div>/*return*/
 
   )
 }
 
-export default Employees;
+export default SendsType;

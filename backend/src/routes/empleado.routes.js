@@ -13,5 +13,6 @@ route.delete("/deleteEmployee/:id", controllerEmpleados.deleteEmployee); // Elim
 route.get('/listEmployee', controllerEmpleados.getAllEmployee);  // Listado completo de  los empleados
 route.post('/loginEmployee', controllerEmpleados.loginEmployee);  // Iniciar sesión empleado en el sistema
 route.get('/listEmployeesBoss', verificarToken, controllerEmpleados.getAllEmployeesBoss);   // Obtener lista de todos los empledos que tiene asignado como jefe
+route.get('/search/:nombres', verificarToken, controllerEmpleados.searchEmployee)   ;
 
 export default route;

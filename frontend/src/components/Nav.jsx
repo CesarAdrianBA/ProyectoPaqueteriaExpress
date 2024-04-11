@@ -40,6 +40,11 @@ const Nav = () => {
             </NavLink>
           </li>
           <li className='nav-item'>
+            <NavLink className='nav-link' to='/envio'>
+              <i className='fas fa-user'>Envios</i>
+            </NavLink>
+          </li>
+          <li className='nav-item'>
             <NavLink className='nav-link' to='/' onClick={()=>exit()}>
               <i className='fas fa-user-times'> Salir</i>
             </NavLink>
