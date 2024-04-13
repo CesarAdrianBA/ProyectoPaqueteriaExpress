@@ -9,19 +9,19 @@ const clientSchema = new Schema({
     },
     Telefono: {
         type : String, 
-        require : true
+        require : false
     },
     Correo: {
         type : String, 
-        require : true
+        require : false
     },
     Genero: {
         type : String, 
-        require : true
+        require : false
     },
     Edad: {
         type : Number, 
-        require : true
+        require : false
     },
     EmpleadoAsignado: {
         type : Schema.ObjectId,
@@ -29,9 +29,8 @@ const clientSchema = new Schema({
     },
     Contrasenia: {
         type : String,
-        required : true
+        required : false
     }
-
 });
 
 export const clientModel = model('cliente', clientSchema);

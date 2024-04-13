@@ -10,7 +10,7 @@ const Employees = () => {
 
     const getEmployees= useCallback (async()=>{
         try {
-          const { data } = await axios.get("/listEmployee");
+          const { data } = await axios.get("/listEmployeesBoss");
             //console.log(data);
             setEmpleados(data.data);
         } catch (error) {

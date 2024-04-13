@@ -2,6 +2,7 @@ import React, { useState,useEffect, useCallback  } from 'react';
 import { useEmployee } from '../context/EmployeeContext';
 import Swal from "sweetalert2";
 import axios from 'axios';
+import ModalActionsClients from './ModalActionsClients';
 
 const Clients = () => {
     const { employee } = useEmployee();
@@ -9,8 +10,8 @@ const Clients = () => {
 
     const getClients= useCallback (async()=>{
         try {
-          const { data } = await axios.get("/listClientsofEmployee");
-            console.log(data);
+          const { data } = await axios.get("/listClients");
+            // console.log(data);
             setClientes(data.data);
         } catch (error) {
           if(!error.response.data.ok){
@@ -53,13 +54,46 @@ const Clients = () => {
         });
       };
   
+      
+      
+      //manejar modal
+      const [client, setClients] = useState(false);
+      const [edit,setEdit] = useState(false);
+      const [open, setOpen] = useState(false);
+
+      const onOpenModal = (edit,client) => {
+        setOpen(true);
+        setEdit(edit);
+        setClients(client);
+      }
+
+      const onCloseModal = () => setOpen(false);
+
+      //busqueda
+      //método de búsqueda desde el backend
+      
+      const search = async (value) => {
+        try {
+          console.log(value);
+            if (value === "") {
+              return getClients();
+            }
+            const { data } = await axios.get(`/searchClient/${value}`);
+            setClientes(data.data);
+          } catch (error) {
+            console.log("error en search", error.message);
+          }
+      };
+      
+
   return (
     <div>
     <nav className='navbar py-4'>
       <div className='container'>
         <div className='col-md-3'>
-          <button className='btn btn-primary'>
-            <i className='fas fa-plus'></i> Add empleado
+          <button className='btn btn-primary'
+          onClick={()=>onOpenModal(false,{})} >
+            <i className='fas fa-plus'></i> Add Cliente
           </button>
         </div>{/*col-md-3*/}
         <div className='col-md-6 ml-auto'>
@@ -70,6 +104,7 @@ const Clients = () => {
               placeholder='Buscar...'
               aria-label="Search"
               required
+              onChange={(e)=>search(e.target.value)}
             />
           </div>{/*input-group*/}
         </div>{/*col-md-6 ml-auto*/}
@@ -88,11 +123,12 @@ const Clients = () => {
                   <thead className='table-dark'>
                     <tr>
                       <th>#</th>
-                      <th>Nombres</th>
+                      <th>Nombre</th>
                       <th>Teléfono</th>
                       <th>Correo</th>
                       <th>Genero</th>
                       <th>Edad</th>
+                      <th>Empleado Asignado</th>
                       <th>Opciones</th>
                     </tr>
                   </thead>
@@ -106,13 +142,15 @@ const Clients = () => {
                             <td>{item.Correo}</td>
                             <td>{item.Genero}</td>
                             <td>{item.Edad}</td>
+                            <td>{item.EmpleadoAsignado}</td>
                             <td>
                             <button className='btn btn-danger me-1' onClick={() =>{
                                 deleteClient(item._id);
                               }}>
                                 <i className='fas fa-trash'></i>
                               </button>
-                              <button className='btn btn-warning'>
+                              <button className='btn btn-warning'
+                                onClick={()=> onOpenModal(true,item)}>
                                 <i className='fas fa-edit'></i>
                               </button>
                             </td>
@@ -128,6 +166,13 @@ const Clients = () => {
         </div>{/*row*/}
       </div> {/*container*/}
     </section>
+    <ModalActionsClients
+        open={open} 
+        onCloseModal={onCloseModal}
+        getClients={getClients}
+        edit={edit}
+        client={client}
+      />
   </div>/*return*/
 
   )

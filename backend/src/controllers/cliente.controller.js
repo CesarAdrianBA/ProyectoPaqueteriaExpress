@@ -11,7 +11,7 @@ controllerClientes.createClient = async(req, res) =>{
     try{
         const data = req.body;
         const resp = await clientModel.create(data);
-        messageGeneral(res,201, true,resp,"Cliente creado"); 
+        messageGeneral(res,201,true,resp,"Cliente creado"); 
     } catch {
         messageGeneral(res,500,false,"",error.message);
     }
@@ -109,6 +109,19 @@ controllerClientes.loginClient = async (req, res) => {
         messageGeneral(res, 500, false, "", error.message);
     }
 }
+
+ // Método para buscar clientes
+ controllerClientes.searchClient=async (req, res) =>{
+    try {
+        const { Nombre } = req.params;
+        const resp = await clientModel.find({
+          Nombre:{$regex: "" + Nombre + ""},
+        });
+        messageGeneral(res,200,true,resp,"");
+      } catch (error) {
+        messageGeneral(res,500,false,"",error.message);
+      }
+ }
 
 
 

@@ -10,8 +10,9 @@ route.put('/updateClient/:id', controllerClientes.updateClient); // Actualizar l
 route.delete('/deleteClient/:id', controllerClientes.deleteClient); // Eliminar a un Cliente por ID
 
 //Otros métodos
-route.get('/listClients', controllerClientes.getAllClients); // Listado completo de todos los clientes
+route.get('/listClients', verificarToken, controllerClientes.getAllClients); // Listado completo de todos los clientes
 route.get('/listClientsofEmployee', verificarToken, controllerClientes.getAllClientsEmployees); // Listado completo de todos los clientes por empleados
 route.post('/loginClient', controllerClientes.loginClient) ; // Iniciar sesión cliente en el sistema
+route.get('/searchClient/:Nombre', verificarToken, controllerClientes.searchClient);
 
 export default route;

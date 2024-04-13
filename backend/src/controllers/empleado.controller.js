@@ -119,7 +119,7 @@ const  controllerEmpleados = {};
     try {
         const { Nombre } = req.params;
         const resp = await employeeModel.find({
-          Nombre:{$regex: "." + Nombre + "."},
+          Nombre:{$regex: "" + Nombre + ""},
         });
         messageGeneral(res,200,true,resp,"");
       } catch (error) {
